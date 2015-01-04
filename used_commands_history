@@ -1,0 +1,83 @@
+
+# This file captures the history of the commands used for various purposes during the course of the project.
+
+### get columns of a file having a delimeter
+head -1 yelp_academic_dataset_user.csv | sed 's/;/\n/g' > user_fields
+
+###Restaurants that have overall rating
+$cat yelp_academic_dataset_business.csv | awk -F ";" '{print $66}' | sed '/^$/d' | wc -l
+
+##Filtered restaurants -- 14303
+$cat academic_dataset_business.csv | grep "'Restaurants'" | awk -F ";" '{print $17,";",$23,";",$38,";",$66}' > restaurants
+
+##Restaurant ids in separate file
+$cat restaurants | awk -F ";" '{print $1}' | sed -e 's/^ *//' -e 's/ *$//' | tail -14303 > restaurant_ids
+
+# All reviews -- 1125459
+cat yelp_academic_dataset_review.csv | awk -F "[" '{print $2, "[", $1, "[", $5, "[", $7, "[", $3}' > reviews
+
+#Restaurant reviews -- 706646
+$cat reviews_trimmed | awk -F "[" 'NR==FNR{a[$0];next} ($3 in a)' restaurant_ids - > restaurant_reviews
+
+#Restaurants with atleast 7 reviews -- 10989
+$cat restaurants_trimmed | awk -F ";" '($3 > 6)' > restaurants_with_7_reviews
+
+## Trim whitespaces around a character ;
+$cat restaurants | sed 's/\s*;\s*/;/g' > restaurants_trimmed
+
+## users -- 252899
+$cat yelp_academic_dataset_user.csv | awk -F ";" '{print $17,";",$14,";",$13}' | sed 's/\s*;\s*/;/g' > yelp_users
+
+## users who did at least 7 reviews -- 130424
+$cat yelp_users | awk -F ";" '($2 > 6)' > yelp_users_with_7_reviews
+
+## reviews of restaurants after eliminating restaurant reviews who review count <  7 reviews -- 693885
+$cat restaurant_reviews | awk -F "[" 'NR==FNR{a[$0];next} ($3 in a)' restaurant_with_7_reviews_ids - > reviews_of_restaurant_with_7_reviews
+
+## reviews of restaurants after eliminating reviews of users whose total reviews are < 7 -- 580043
+$cat reviews_of_restaurant_with_7_reviews | awk -F "[" 'NR==FNR{a[$0];next} ($2 in a)' users_with_7_reviews_ids - > reviews_of_restaurants_and_users_with_7_reviews
+
+## restaurants who have at least 7 reviews and all of those are given by users who reviewed at least 7 restaurants -- 9719
+$awk -F "[" '{count[$3]+=1} END {for(i in count) {if(count[i]>6){print i,count[i]}}} ' reviews_of_restaurants_and_users_with_7_reviews > restaurants_with_atleast_7_reviews_rated_by_atleast_7_users
+
+## Final Reviews of restaurants who have a review count >= 7 and rated by those users whose total review count >= 7 --- 573907
+$cat reviews_of_restaurants_and_users_with_7_reviews | awk -F "[" 'NR==FNR{a[$0];next} ($3 in a)' restaurant_ids_atleast_7_reviews_final - > final_reviews
+
+## Users who provided final reviews -- 105983
+$awk -F "[" '{count[$2]+=1} END {for(i in count) {print i,count[i]}} ' final_reviews > users_who_provided_final_reviews
+
+## No lot parking restaurants -- 5656
+awk -F ";" '$5="False" {print $1}' restaurants_parking_info > no_lot_parking_strictly_rest_ids 
+
+## no parking reviews - 257269
+cat restaurant_reviews | awk -F "[" 'NR==FNR{a[$0];next} ($3 in a) {print $5} ' no_lot_parking_strictly_rest_ids - > no_lot_parking_strictly_reviews
+
+## users with review count > 10 -- 103508
+cat yelp_users | awk -F ";" '($2>10) {print $1}' > yelp_users_with_atleast_11_reviews
+
+## reviews of users whose count > 10
+cat restaurant_reviews | awk -F "[" 'NR==FNR{a[$0];next} ($2 in a) {print $5}' yelp_users_with_atleast_11_reviews - > reviews_of_users_with_11_reviews_Atleast
+cat restaurant_reviews | awk -F "[" 'NR==FNR{a[$0];next} ($2 in a) {print $1 "," $2 "," $3 "," $4}' yelp_users_with_atleast_11_reviews - | sed 's/\s*,\s*/,/g' > reviews_of_users_with_11_reviews_all_fields
+
+## group the user reviews by user_id
+awk -F "," '{gsub("\r","",$5)} {if(a[$2]) a[$2]=a[$2]","$1":"$3":"$4":"$5; else a[$2]=$1":"$3":"$4":"$5;} END {for(i in a) print i,a[i];}' OFS="|" lda_ml/user_review_topic_prob > lda_ml/reviews_grouped_by_user_corrected
+
+## group the user reviews by restaurant id
+awk -F "," '{gsub("\r","",$5)} {if(a[$3]) a[$3]=a[$3]","$1":"$2":"$4":"$5; else a[$3]=$1":"$2":"$4":"$5;} END {for(i in a) print i,a[i];}' OFS="|" lda_ml/user_review_topic_prob > lda_ml/reviews_grouped_by_restaurant
+
+## get different categories of restaurants
+cat ../yelp_academic_dataset_business.csv | grep "'Restaurants'" | awk -F ";" '{print $63}' | sed 's/\s*;\s*/;/g' | grep -Po "'.*?'" | sort -u -f | sed "s/'//g" | wc -l
+cat ../yelp_academic_dataset_business.csv | grep "'Restaurants'" | awk -F ";" '{print $1";"$82";"$63";"$19";"$76}' | sed "s/(//g" |sed "s/)//g"| sed "s/'//g" > rest_types_cleaned
+
+## get the review of a review id
+cat ../reviews_of_users_with_11_reviews_all_fields | awk '/XiZqiVEOQMQRmjSriBumVQ/ {print FNR}'
+sed -n '12p' reviews_of_users_with_11_reviews_Atleast
+
+## filter out restaurants of a topic
+grep "(0, 0.99*" lda_ml/user_review_individual_topics_prob | awk -F "," '{print $1}' > topic_0_review_ids
+cat reviews_of_users_with_11_reviews_all_fields | awk -F "," 'NR==FNR{a[$0];next} ($1 in a) {print $3} '  topic_0_review_ids - > topic_0_rest_ids
+cat rest_types_cleaned | awk -F ";" 'NR==FNR{a[$0];next} ($1 in a) {print $0}' topic_0_rest_ids - > topic_0_restaurants
+
+# get reviews that talk about parking and contributed to topic 0
+cat reviews_of_users_with_11_reviews_Atleast | awk '/parking/ {print FNR}' > no_parking_review_numbers
+cat no_parking_review_numbers | awk 'NR==FNR{a[$0];next} (FNR in a) {print $0}' - lda_ml/user_review_individual_topics_prob  | grep "(0, *" |more
