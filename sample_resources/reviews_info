@@ -1,0 +1,8 @@
+# extracted from yelp_academic_dataset_review.csv
+# this file is an input to lda_ml.py
+#review_id,user_id,business_id,stars_of_review
+9uHZyOu5CTCDl1L6cfvOCA,p4ySEi8PEli0auZGBsy6gA,JwUE5GmEO-sH1FuwJgKBlQ,4
+ow1c4Lcl3ObWxDC2yurwjQ,ZYaumz29bl9qHpu-KVtMGA,JwUE5GmEO-sH1FuwJgKBlQ,4
+FRTCszJWkJonDAZx3yr8FA,SvS7NXWG2B2kFoaHaWdGfg,JwUE5GmEO-sH1FuwJgKBlQ,4
+qQIvtbqUujvvnJDzPSfmFA,qOYI9O0ecMJ9VaqcM9phNw,JwUE5GmEO-sH1FuwJgKBlQ,4
+4iPPOQIo5Mr1NAUPUgCUrQ,EEYwj6_t1OT5WQGypqEPNg,JwUE5GmEO-sH1FuwJgKBlQ,4

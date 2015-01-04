@@ -1,0 +1,8 @@
+# extracted from yelp_academic_dataset_review.csv
+# this file is an input to lda_ml.py
+# review_text each in a separate line
+Good truck stop dining at the right price. We love coming here on the weekends when we don't feel like cooking.
+If you like lot lizards, you'll love the Pine Cone!
+Enjoyable experience for the whole family. The wait staff was courteous and friendly; the food was reasonably priced and a good value. A word of advice--LEAVE ROOM FOR DESSERT! the deserters are great but huge! Plan to bring some home
+One of my favorite truck stop diners with solid food and friendly, quick service. My god, those desserts are huge! I can't imagine eating that giant cream puff.  All the food we had was delicious and I love how they leave a carafe of coffee on the table. Love this place. Would definitely be back if I was in the area!
+Only went here once about a year and a half ago, but they had great pancakes! My only problem with it at the time was that they allowed smoking, so I left smelling like a cigarette. With the change in law, I'm sure the atmosphere has improved!

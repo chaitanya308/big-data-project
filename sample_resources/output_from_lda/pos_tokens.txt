@@ -1,0 +1,5 @@
+# Tokens after POS tagging
+["good", "JJ"], ["truck", "NN"], ["stop", "NN"], ["dining", "VBG"], ["price", "NN"], ["love", "NN"], ["coming", "VBG"], ["weekend", "NN"], ["feel", "NN"], ["cooking","VBG"]
+["lot", "NN"], ["lizard", "VBD"], ["love", "NN"], ["pine", "NN"], ["cone", "NN"]
+["enjoyable", "JJ"], ["experience", "NN"], ["family", "NN"], ["wait", "NN"], ["staff", "NN"], ["courteous", "JJ"], ["friendly", "JJ"], ["food", "NN"], ["priced", "VBN"], ["good", "JJ"], ["word", "NN"], ["advice", "NN"], ["leave", "NN"], ["room", "NN"], ["dessert", "NN"], ["deserter", "NN"], ["great", "NN"], ["huge", "JJ"], ["plan", "NN"], ["bring", "VBG"], ["home", "NN"]
+["favorite", "JJ"], ["truck", "NN"], ["stop", "NN"], ["diner", "NN"], ["solid", "VBD"], ["food", "NN"], ["friendly", "RB"], ["quick", "JJ"], ["service", "NN"], ["god", "NN"], ["dessert", "NN"], ["huge", "JJ"], ["ca", "NN"], ["imagine", "NN"], ["eating", "VBG"], ["giant", "JJ"], ["cream", "NN"], ["puff", "NN"], ["food", "NN"], ["delicious", "JJ"], ["love", "NN"], ["leave", "NN"], ["carafe", "NN"], ["coffee", "NN"], ["table", "NN"], ["love", "NN"], ["place", "NN"], ["back", "RB"], ["area", "NN"]

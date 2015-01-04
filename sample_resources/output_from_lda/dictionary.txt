@@ -1,0 +1,11 @@
+# Dictionary created from final valid tokens
+9150	aaa	81
+2328	aaron	182
+3545	ab	76
+5723	aback	221
+856	abalone	100
+1023	abandon	95
+265	abc	121
+6657	aber	63
+7617	ability	809
+2100	abita	72

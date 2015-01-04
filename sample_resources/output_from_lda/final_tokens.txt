@@ -1,0 +1,6 @@
+# Tokens that are considered for dictionary creation
+["truck", "stop", "price", "love", "weekend", "feel"]
+["lot", "love", "pine", "cone"]
+["experience", "family", "wait", "staff", "food", "word", "advice", "leave", "room", "dessert", "deserter", "great", "plan", "home"]
+["truck", "stop", "diner", "food", "service", "god", "dessert", "ca", "imagine", "cream", "puff", "food", "love", "leave", "carafe", "coffee", "table", "love", "place", "area"]
+["year", "half", "pancake", "problem", "time", "smoking", "cigarette", "change", "law"]

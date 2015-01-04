@@ -1,0 +1,5 @@
+# extracted from yelp_academic_dataset_business.csv
+#business_id;name;categories;num_reviews;stars
+JwUE5GmEO-sH1FuwJgKBlQ;Pine Cone Restaurant;Restaurants;26;4.0
+uGykseHzyS5xAMWoN6YUqA;Deforest Family Restaurant;American Traditional, Restaurants;16;4.0
+LRKJF43s9-3jG9Lgx4zODg;Culvers;Food, Ice Cream & Frozen Yogurt, Fast Food, Restaurants;7;4.5
