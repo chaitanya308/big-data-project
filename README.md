@@ -18,16 +18,19 @@ Programming Environment(Linux):
 For our project, the environment is setup on CentOs 6.0 and VIM editor is used for source code editing.
 
 Input Dataset:
+
 Yelp challenge dataset available at https://www.yelp.com/dataset_challenge/dataset should be downloaded and unzipped.
 The dataset is big, around 1.3GB.
 
 Project Folder Organization:
+
 sample_resources - contains samples of some the input and output files of various scripts, for reference
 data_extraction - contains python and shell scripts used to extract the data from yelp dataset
 lda - contains source code (and output fiels) to extract topics and to analyze and visualize the findings
 dispersion_analysis - contains a python script for word dispersion analysis and plots.
 
 Input data extraction and filtering:
+
 Run the script extract_data to convert the files to CSV and extract relevant data.
 $./extract_data
 
@@ -46,6 +49,7 @@ Samples of this data are provided in sample_resources directory for reference.
 ExtractReviews.py and ExtractRestaurantIDs.py scripts should be used to extract the data required for DispersionPlot.py script.
 
 Run the LDA analysis program:
+
 Once all the required input data is present in input_resources, proceed to execute the LDA by running lda_ml.py script
 <pre>
 $python lda_ml.py -h
