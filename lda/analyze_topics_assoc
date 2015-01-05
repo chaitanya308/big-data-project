@@ -1,0 +1,43 @@
+# Produce broader categorization of the restaurants
+echo 'Categorizing all the restaurants'
+python categorize.py -f restaurants_info > lda_ml/restaurant_types
+
+## get reviews that are strongly associated with topic 0 - accessibility, location and space
+echo 'Extracting top restaurants associated strongly with topic 0'
+grep "(0, 0.9*" lda_ml/user_review_individual_topics_prob | awk -F "," '{print $1}' > topic_0_review_ids
+cat input_resources/reviews_of_users_with_11_reviews_all_fields | awk -F "," 'NR==FNR{a[$0];next} ($1 in a) {print $3} '  topic_0_review_ids - > topic_0_restaurant_ids
+cat input_resources/restaurants_info | awk -F ";" 'NR==FNR{a[$0];next} ($1 in a) {print $0}' topic_0_restaurant_ids - > topic_0_restaurants
+python categorize.py -f topic_0_restaurants > lda_ml/topic_0_types
+
+## get reviews that are strongly associated with topic 2 - good service and experience
+echo 'Extracting top restaurants associated strongly with topic 2'
+grep "(2, 0.9*" lda_ml/user_review_individual_topics_prob | awk -F "," '{print $1}' > topic_2_review_ids
+cat input_resources/reviews_of_users_with_11_reviews_all_fields | awk -F "," 'NR==FNR{a[$0];next} ($1 in a) {print $3} '  topic_2_review_ids - > topic_2_restaurant_ids
+cat input_resources/restaurants_info | awk -F ";" 'NR==FNR{a[$0];next} ($1 in a) {print $0}' topic_2_restaurant_ids - > topic_2_restaurants
+python categorize.py -f topic_2_restaurants > lda_ml/topic_2_types
+
+## get reviews that are strongly associated with topic 6 - bad service and experience
+echo 'Extracting top restaurants associated strongly with topic 6'
+grep "(6, 0.9*" lda_ml/user_review_individual_topics_prob | awk -F "," '{print $1}' > topic_6_review_ids
+cat input_resources/reviews_of_users_with_11_reviews_all_fields | awk -F "," 'NR==FNR{a[$0];next} ($1 in a) {print $3} '  topic_6_review_ids - > topic_6_restaurant_ids
+cat input_resources/restaurants_info | awk -F ";" 'NR==FNR{a[$0];next} ($1 in a) {print $0}' topic_6_restaurant_ids - > topic_6_restaurants
+python categorize.py -f topic_6_restaurants > lda_ml/topic_6_types
+
+## get reviews that are strongly associated with topic 9 - good bar services
+echo 'Extracting top restaurants associated strongly with topic 9'
+grep "(9, 0.9*" lda_ml/user_review_individual_topics_prob | awk -F "," '{print $1}' > topic_9_review_ids
+cat input_resources/reviews_of_users_with_11_reviews_all_fields | awk -F "," 'NR==FNR{a[$0];next} ($1 in a) {print $3} '  topic_9_review_ids - > topic_9_restaurant_ids
+cat input_resources/restaurants_info | awk -F ";" 'NR==FNR{a[$0];next} ($1 in a) {print $0}' topic_9_restaurant_ids - > topic_9_restaurants
+python categorize.py -f topic_9_restaurants > lda_ml/topic_9_types
+
+## get reviews that are strongly associated with topic 11 - breakfast and brunch service
+echo 'Extracting top restaurants associated strongly with topic 11'
+grep "(11, 0.9*" lda_ml/user_review_individual_topics_prob | awk -F "," '{print $1}' > topic_11_review_ids
+cat input_resources/reviews_of_users_with_11_reviews_all_fields | awk -F "," 'NR==FNR{a[$0];next} ($1 in a) {print $3} '  topic_11_review_ids - > topic_11_restaurant_ids
+cat input_resources/restaurants_info | awk -F ";" 'NR==FNR{a[$0];next} ($1 in a) {print $0}' topic_11_restaurant_ids - > topic_11_restaurants
+python categorize.py -f topic_11_restaurants > lda_ml/topic_11_types
+
+# get reviews that talk about parking and contributed to topic 0
+echo 'Extracting reviews discussing parking concern'
+cat reviews_of_users_with_11_reviews_Atleast | awk '/parking/ {print FNR}' > no_parking_review_numbers
+cat no_parking_review_numbers | awk 'NR==FNR{a[$0];next} (FNR in a) {print $0}' - lda_ml/user_review_individual_topics_prob  | grep "(0, *" > no_parking_reviews_topic_distr
