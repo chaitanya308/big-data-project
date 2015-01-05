@@ -21,6 +21,12 @@ Input Dataset:
 Yelp challenge dataset available at https://www.yelp.com/dataset_challenge/dataset should be downloaded and unzipped.
 The dataset is big, around 1.3GB.
 
+Project Folder Organization:
+sample_resources - contains samples of some the input and output files of various scripts, for reference
+data_extraction - contains python and shell scripts used to extract the data from yelp dataset
+lda - contains source code (and output fiels) to extract topics and to analyze and visualize the findings
+dispersion_analysis - contains a python script for word dispersion analysis and plots.
+
 Input data extraction and filtering:
 Run the script extract_data to convert the files to CSV and extract relevant data.
 $./extract_data
@@ -37,7 +43,9 @@ The script has a set of commands to do the following tasks:
 
 Samples of this data are provided in sample_resources directory for reference.
 
-Run the program:
+ExtractReviews.py and ExtractRestaurantIDs.py scripts should be used to extract the data required for DispersionPlot.py script.
+
+Run the LDA analysis program:
 Once all the required input data is present in input_resources, proceed to execute the LDA by running lda_ml.py script
 <pre>
 $python lda_ml.py -h
@@ -68,6 +76,6 @@ $python lda_ml.py -f reviews_of_users_with_atleast_11_reviews -l -k 15 -w 50 -c 
 This program would output the extracted topics. And lot of intermediate data will also be generated in lda_ml directory for reference and cross verification. Samples of the intermediate data is provided in sample_resources directory.
 
 After the topics are extracted, certain manual analysis is required to tag the topics appropriately and to analyze the topics association with various restaurants.
-analyze_topics_assoc script automates this analysis to certain extent. Run the script by issuing ./analyze_topics_assoc at shell prompt. This script uses categorize.py to produce the categorization of restaurants associated with a topic. In this case, topics association analysis is captured in lda_ml/heatmap_analysis file. Once the analysis is done, plot.py can be used to generate various graphs. 
+analyze_topics_assoc script automates this analysis to certain extent. Run the script by issuing ./analyze_topics_assoc at shell prompt. This script uses categorize.py to produce the categorization of restaurants associated with a topic. In this case, topics association analysis is captured in lda_ml/heatmap_analysis file. Once the analysis is done, plot.py can be used to generate various charts.
 
 The script DispersionPlot.py in dispersion_analysis directory produces the word correlation dispersion plots for various words in the user reviews.
